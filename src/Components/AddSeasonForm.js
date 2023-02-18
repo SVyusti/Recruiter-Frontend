@@ -31,21 +31,30 @@ const AddSeasonForm=()=>{
     };
 
     return(
-      <div id='add-season'>
-        <h1>Add Season</h1>
+      <div id='add_season'>
+        <div>
         <form className='form' onSubmit={handleSubmit}>
             <div className='form-row'>
+                <div>
                 <label>Id</label>
+                </div>
+                <div>
                 <input type='number' className='input' id='Id' value={Id} onChange={(e)=>setId(e.target.value)}/>
+                </div>
             </div>
             <div className='form-row'>
+                <div>
                 <label>Season</label>
-                <input type='text' className='input' id='Id' value={year} onChange={(e)=>setyear(e.target.value)}/>        
+                </div>
+                <div>
+                <input type='text' className='input' id='Id' value={year} onChange={(e)=>setyear(e.target.value)}/>   
+                </div>     
             </div>
             <div>
-            <input type="submit" value="Add"></input>
+            <input type="submit" value="Submit"></input>
             </div>
         </form>
+        </div>
       </div>  
     )
 }

@@ -7,9 +7,9 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import AddSeasonForm from './Components/AddSeasonForm';
 import Layout from './hocs/Layout';
 import Navbar from './Components/Navbar';
-import Dashboard from './Containers/Dashboard';
 import Home from './Containers/Home';
 import SeasonRequest from './requests/SeasonRequest';
+import Dashboard from './Containers/Dashboard';
 
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="dashboard/" element={<Dashboard/>}/>
             <Route path="login/" element={<Login/>} />
             <Route path="Season/" element={<AddSeasonForm/>} />
             <Route path="SeasonReq/" element={<SeasonRequest/>} />

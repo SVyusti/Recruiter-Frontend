@@ -1,18 +1,18 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React,{useState,useEffect} from 'react'
+import SeasonRequest from '../requests/SeasonRequest';
+import AddSeasonForm from '../Components/AddSeasonForm';
+import { Button } from 'react-bootstrap';
 
 function Dashboard() {
+    const [Display,setDisplay]=useState(false)
   return (
-    <div className='container'>
-        <div className='mt-5 p-5 bg-light'>
-            <h1 className='display-4'>Welcome to Recruiter</h1>
-            <p className='lead'></p>
-            <hr className='my-4'></hr>
-            <p>Click to log in</p>
-            <Link className='btn btn-primary btn-lg' to='/login'>Login</Link>
-        </div>
+    <div>
+        <h1>Seasons</h1>
+        <button onClick={()=>setDisplay(!Display)}>Add Season</button>
+        {Display && <AddSeasonForm/>}
+        <SeasonRequest/>
     </div>
   )
 }
 
-export default Dashboard
+export default Dashboard;

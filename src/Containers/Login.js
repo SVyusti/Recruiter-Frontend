@@ -1,8 +1,9 @@
 import React,{useContext} from 'react';
 import {createContext} from 'react';
-import {Button} from '@mui/material';
+import {Button} from 'react-bootstrap';
 import { Typography, Box } from '@mui/material';
 import {redirect} from 'react-router-dom';
+import "../styles/list.css"
 import {
   LOGIN_SUCCESS,LOGIN_FAIL
 } from '../actions/types'
@@ -16,13 +17,13 @@ function LoginRequest(){
 
 function Login() {
   return (
-    <div>
+    <div className="login">
     <img src={process.env.PUBLIC_URL + "/images/omniport.png"}
      alt=""
      width='40px'></img>
-    <button onClick={LoginRequest}>
-        Login with Omniport
-    </button>
+    <Button variant="light" onClick={LoginRequest}>
+        Login with omniport
+    </Button>
     </div>
   );
 }
