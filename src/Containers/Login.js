@@ -4,9 +4,6 @@ import {Button} from 'react-bootstrap';
 import { Typography, Box } from '@mui/material';
 import {redirect} from 'react-router-dom';
 import "../styles/list.css"
-import {
-  LOGIN_SUCCESS,LOGIN_FAIL
-} from '../actions/types'
 // import {UserContext} from '../../utils/hooks/UserContext';
 function LoginRequest(){
     console.log("clicked");

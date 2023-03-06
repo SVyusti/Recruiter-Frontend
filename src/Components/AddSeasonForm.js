@@ -3,7 +3,6 @@ import axios from "axios";
 import {Button} from '@mui/material';
 import SeasonRequest from "../requests/SeasonRequest";
 import {useNavigate} from 'react-router-dom';
-import { LOGIN_FAIL } from '../actions/types';
 axios.defaults.withCredentials=true;
 axios.defaults.xsrfCookieName='csrftoken';
 axios.defaults.xsrfHeaderName='X-CSRFTOKEN';
@@ -13,7 +12,7 @@ axios.defaults.xsrfHeaderName='X-CSRFTOKEN';
 const url="http://127.0.0.1:8000/seasons/"
 
 const AddSeasonForm=()=>{
-    const [Id,setId]=useState(0);
+    const [Id,setId]=useState(null);
     const [year,setyear]=useState('');
 
     const handleSubmit=async(e)=>{

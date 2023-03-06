@@ -1,25 +1,29 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
-import httpCommon from "../http-common";
-import { useState } from "react";
+import client from "../http-common.js"
 axios.defaults.withCredentials=true;
 axios.defaults.xsrfCookieName='csrftoken';
 axios.defaults.xsrfHeaderName='X-CSRFTOKEN';
 
 function RoundRequest(){
-    const [RoundList,setRoundList]=useState([]);
+    const [RoundList,setRoundList]=useState([null]);
+    const [PartRound,setPartRound]=useState([null]);
     useEffect(()=>{
-        fetchData();
+        axios.get('http://127.0.0.1:8000/round/',{'withCredentials':true})
+            .then(res=>{
+                console.log(res.data)
+                setRoundList(res.data)
+                return res.data
+            })
+            .catch(err=>{
+                console.log(err)
+            })
     },[]);
-    const apiURL="http://127.0.0.1:8000/round/";
-    const fetchData=async()=>{
-       const response=await axios.get(apiURL,{'withCredentials':true});
-       console.log(response);
-       setRoundList(response.data);
-       console.log(response.data);
-
-    }
-    return response.data;
-
+    return(
+        <div>
+            
+        </div>
+    )
 }
+
 export default RoundRequest;
