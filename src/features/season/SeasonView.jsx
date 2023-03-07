@@ -7,7 +7,7 @@ export const SeasonView = () => {
   const dispatch=useDispatch()
   useEffect(()=>{
     dispatch(fetchSeasons())
-  },[dispatch])
+  },[])
   return (
     <div>
       <h1>SeasonList</h1>

@@ -1,9 +1,9 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.withCredentials = true
 
-axios.defaults.withCredentials=true;
-axios.defaults.xsrfCookieName='csrftoken';
-axios.defaults.xsrfHeaderName='X-CSRFTOKEN';
 
 const initialState={
     loading:false,
@@ -11,11 +11,20 @@ const initialState={
     error:'',
 }
 
-export const fetchSeasons=createAsyncThunk('season/fetchSeasons',()=>{
-    return axios
-        .get('http://localhost:8000/seasons/',{withCredentials:true})
-        .then((response)=>response.data)
-})
+// export const fetchSeasons=createAsyncThunk('season/fetchSeasons',()=>{
+//     return axios
+//         .get('http://127.0.0.1:8000/seasons',{withCredentials:true})
+//         .then((response)=>response.data)
+// })
+
+export const fetchSeasons=createAsyncThunk('season/fetchSeasons',
+    async () => {
+        const response = await axios.get(`http://127.0.0.1:8000/seasons`,{headers:{"Access-Control-Allow-Origin":"*"}},{withCredentials:true})
+        return response.data
+    }
+)
+
+
 
 const seasonSlice=createSlice({
     name:'season',
