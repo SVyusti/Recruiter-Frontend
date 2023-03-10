@@ -11,31 +11,24 @@ import SeasonRequest from './requests/SeasonRequest';
 import Dashboard from './Containers/Dashboard';
 import RoundRequest from './requests/RoundRequest';
 import { SeasonView } from './features/season/SeasonView';
-
-// class App extends Component {
-//   render() {
-//     return (
-//         <BrowserRouter>
-//           <Routes>
-//             <Route path="/" element={<Home/>}/>
-//             <Route path="dashboard/" element={<Dashboard/>}/>
-//             <Route path="login/" element={<Login/>} />
-//             <Route path="Season/" element={<AddSeasonForm/>} />
-//             <Route path="SeasonReq/" element={<SeasonRequest/>} />
-//             <Route path="RoundReq/" element={<RoundRequest/>} />
-//           </Routes>
-//         </BrowserRouter>
-      
-//     )
-//   }
-// }
+import { RoundView } from './features/round/RoundView';
 
 class App extends Component {
   render() {
     return (
-        <div>
-          <SeasonView/>
-        </div>      
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="dashboard/" element={<Dashboard/>}/>
+            <Route path="login/" element={<Login/>} />
+            <Route path="Season/" element={<AddSeasonForm/>} />
+            <Route path="SeasonReq/" element={<SeasonRequest/>} />
+            <Route path="RoundReq/" element={<RoundRequest/>} />
+            <Route path="SeasonRedux/" element={<SeasonView/>} />
+            <Route path="RoundRedux/" element={<RoundView/>} />
+          </Routes>
+        </BrowserRouter>
+      
     )
   }
 }
