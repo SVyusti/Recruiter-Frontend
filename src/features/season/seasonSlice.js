@@ -18,7 +18,7 @@ const initialState={
 
 export const fetchSeasons=createAsyncThunk('season/fetchSeasons',()=>{
     return axios
-        .get(`${BASE_URL}`,{withCredentials:true})
+        .get(BASE_URL,{withCredentials:true})
         .then((response)=>response.data)
 })
 
@@ -37,17 +37,25 @@ export const createSeasons=createAsyncThunk('season/createSeason',(seasonData)=>
     
 })
 
+// export const deleteSeason=createAsyncThunk('season/deleteSeason',(id)=>{
+//     console.log(id)
+//     return client
+//         .delete(`/seasons/${id}`)
+//         .then((response)=>response.data)
+// })
+
 
 const seasonSlice=createSlice({
     name:'season',
     initialState,
     reducers:{
-        openSeasonDialog:(state)=>{
-            state.open=true
-        },
-        closeSeasonDialog:(state)=>{
-            state.open=false
-        },
+        deleteSeason:(state,action)=>{
+            const{id}=action.payload;
+            const existingSeason=state.seasons.find((season)=>season.Id===id)
+            if(existingSeason){
+                state.seasons=state.seasons.filter((season)=>season.Id !== id)
+            }
+        }
     },
     extraReducers: (builder)=>{
         builder.addCase(fetchSeasons.pending,(state)=>{
@@ -75,17 +83,19 @@ const seasonSlice=createSlice({
             state.loading=false
             state.error=action.error.message
         })
+        builder.addCase(deleteSeason.loading,(state)=>{
+            state.loading=true
+        })
+        builder.addCase(deleteSeason.fulfilled,(state,action)=>{
+            state.loading=false
+        })
+        builder.addCase(deleteSeason.rejected,(state,action)=>{
+            state.loading=false
+            state.error=action.error.message
+        })
 
     },
-    // reducers: {
-    //     changeSeason: (state, action) => {
-    //       state.seasons = action.payload;
-    //     },
-    //     changeLoadingStatus: (state, action) => {
-    //       state.loading = action.payload;
-    //     },
-    //   },
 })
 
+export const {deleteSeason}= seasonSlice.actions;
 export default seasonSlice.reducer
-export const {openSeasonDialog,closeSeasonDialog}=seasonSlice.actions

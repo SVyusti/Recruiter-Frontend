@@ -61,14 +61,6 @@ function AddSeasonDialogue(props){
                         variant="standard"
                         onChange={handleYear}
                     />
-                    {/* <form>
-                        <label>Id:
-                            <input type="int" id='Id' value={newId} onChange={handleId}></input>
-                        </label>
-                        <label>year:
-                            <input type="text" name="year" onChange={handleYear}></input>
-                        </label>
-                    </form> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleAdd}>Add</Button>
