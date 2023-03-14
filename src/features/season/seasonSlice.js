@@ -37,26 +37,25 @@ export const createSeasons=createAsyncThunk('season/createSeason',(seasonData)=>
     
 })
 
-// export const deleteSeason=createAsyncThunk('season/deleteSeason',(id)=>{
-//     console.log(id)
-//     return client
-//         .delete(`/seasons/${id}`)
-//         .then((response)=>response.data)
-// })
+export const deleteSeason=createAsyncThunk('season/deleteSeason',(Id)=>{
+    console.log(Id)
+    return client
+        .delete(`/seasons/${Id}`,{withCredentials:true})
+        .then((response)=>response.data)
+        .catch((error)=>console.log(error.message))
+})
+
+
 
 
 const seasonSlice=createSlice({
     name:'season',
     initialState,
-    reducers:{
-        deleteSeason:(state,action)=>{
-            const{id}=action.payload;
-            const existingSeason=state.seasons.find((season)=>season.Id===id)
-            if(existingSeason){
-                state.seasons=state.seasons.filter((season)=>season.Id !== id)
-            }
-        }
-    },
+    // reducers:{
+    //     deleteSeason(state,action){
+
+    //     }
+    // },
     extraReducers: (builder)=>{
         builder.addCase(fetchSeasons.pending,(state)=>{
             state.loading=true
@@ -83,10 +82,10 @@ const seasonSlice=createSlice({
             state.loading=false
             state.error=action.error.message
         })
-        builder.addCase(deleteSeason.loading,(state)=>{
+        builder.addCase(deleteSeason.pending,(state)=>{
             state.loading=true
         })
-        builder.addCase(deleteSeason.fulfilled,(state,action)=>{
+        builder.addCase(deleteSeason.fulfilled,(state)=>{
             state.loading=false
         })
         builder.addCase(deleteSeason.rejected,(state,action)=>{
@@ -97,5 +96,5 @@ const seasonSlice=createSlice({
     },
 })
 
-export const {deleteSeason}= seasonSlice.actions;
 export default seasonSlice.reducer
+// export const {deleteSeason}=seasonSlice.actions;
