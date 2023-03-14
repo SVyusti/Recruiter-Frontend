@@ -45,6 +45,15 @@ export const deleteSeason=createAsyncThunk('season/deleteSeason',(Id)=>{
         .catch((error)=>console.log(error.message))
 })
 
+export const editSeason=createAsyncThunk('season/editSeason',(editData)=>{
+    console.log(editData)
+    return client
+        .patch(`/seasons/${editData['Id']}/`,{year:editData['year']})
+        .then((response)=>response.data)
+        .catch((error)=>console.log(error.message))
+
+})
+
 
 
 
@@ -89,6 +98,18 @@ const seasonSlice=createSlice({
             state.loading=false
         })
         builder.addCase(deleteSeason.rejected,(state,action)=>{
+            state.loading=false
+            state.error=action.error.message
+        })
+        builder.addCase(editSeason.pending,(state)=>{
+            state.loading=true
+        })
+        builder.addCase(editSeason.fulfilled,(state,action)=>{
+            state.loading=false
+            state.seasons=action.payload
+            state.error=''
+        })
+        builder.addCase(editSeason.rejected,(state,action)=>{
             state.loading=false
             state.error=action.error.message
         })
