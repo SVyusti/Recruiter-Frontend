@@ -2,7 +2,6 @@ import React, { useEffect,useState } from 'react';
 import axios from "axios";
 import {Button,ButtonGroup} from 'react-bootstrap';
 import httpCommon from '../http-common';
-import '../styles/list.css';
 axios.defaults.withCredentials=true;
 axios.defaults.xsrfCookieName='csrftoken';
 axios.defaults.xsrfHeaderName='X-CSRFTOKEN';

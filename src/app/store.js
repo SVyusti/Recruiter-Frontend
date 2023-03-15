@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import seasonReducer from '../features/season/seasonSlice'
-import roundReducer from '../features/round/roundSlice'
+import roundReducer from '../features/rounds/roundSlice'
 
 const store=configureStore({
     reducer:{

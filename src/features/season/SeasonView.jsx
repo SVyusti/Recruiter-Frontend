@@ -1,13 +1,14 @@
-import { unwrapResult } from '@reduxjs/toolkit'
 import React,{useState,useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import { deleteSeason, fetchSeasons } from './seasonSlice'
+import { fetchSeasons } from './seasonSlice'
 import AddSeasonDialogue from './AddSeasonDialogue'
 import { RiDeleteBinLine } from "react-icons/ri";
-import {Table, Button, Stack, View } from 'react-bootstrap'
+import {Table, Button} from 'react-bootstrap'
 import DeleteSeason from './DeleteSeason'
 import EditSeasonDialogue from './EditSeasonForm'
 import { BiEditAlt } from "react-icons/bi";
+import { RoundView } from '../rounds/RoundView';
+import { useNavigate } from 'react-router-dom';
 
 
 export const SeasonView = () => {
@@ -18,11 +19,16 @@ export const SeasonView = () => {
   useEffect(()=>{
     dispatch(fetchSeasons())
   },[])
+
+
   const [open,setOpen]=useState(false)
   const [openDelete,setOpenDelete]=useState(false)
   const [DeleteId,SetDeleteId]=useState(0)
   const [openEdit,setOpenEdit]=useState(false)
   const [EditId,SetEditId]=useState(0)
+  const navigate = useNavigate();
+
+
 
   function handleDelete(id){
     setOpenDelete(true)
@@ -34,6 +40,12 @@ export const SeasonView = () => {
     SetEditId(id)
   }
 
+  const seasonDashboard=(season_id,season_year)=>{
+    navigate(`/Season/${season_id}/${season_year}`)
+  }
+
+
+  
   return (
     <div>
       <h1>SeasonList</h1>
@@ -57,7 +69,7 @@ export const SeasonView = () => {
             season.seasons.slice(0).reverse().map(season=>{
                     return <tr key={season.Id}>
                       <td>{season.Id}</td>
-                      <td><Button variant="outline-secondary">{season.year}</Button></td>
+                      <td><Button variant="outline-secondary" onClick={()=>(seasonDashboard(season.Id,season.year))}>{season.year}</Button></td>
                       <td><button onClick={()=>(handleDelete(season.Id))}><RiDeleteBinLine/></button>
                       <button onClick={()=>(handleEdit(season.Id))}><BiEditAlt/></button></td>
                       
