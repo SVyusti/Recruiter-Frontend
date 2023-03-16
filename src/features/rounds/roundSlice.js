@@ -17,16 +17,17 @@ const initialState={
 const BASE_URL='http://127.0.0.1:8000/round'
 
 export const fetchRounds=createAsyncThunk('round/fetchRounds',(season_id)=>{
-    console.log(season_id)
     return axios
         .get(`${BASE_URL}/?S_Id=${season_id}`,{withCredentials:true})
         .then((response)=>response.data)
 })
 
 export const createRound=createAsyncThunk('round/fetchRounds',(round_data)=>{
+    console.log(round_data)
     return client
         .post('/round/',
         {
+           RoundId:round_data['RoundId'],
            type:round_data['type'],
            role:round_data['role'],
            S_Id:round_data['season_id']

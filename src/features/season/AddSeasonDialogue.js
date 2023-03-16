@@ -1,12 +1,7 @@
 import React,{useState,useEffect} from "react";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import Button from "@mui/material/Button";
+import {TextField,Button,Dialog,DialogContent,DialogTitle,DialogActions} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {createSeasons} from "../season/seasonSlice"
-import TextField from "@mui/material/TextField";
 
 function AddSeasonDialogue(props){
     const season=useSelector((state)=>state.season)
@@ -44,27 +39,32 @@ function AddSeasonDialogue(props){
                 <DialogContent>
                     <TextField
                         autoFocus
-                        id="Id"
+                        id="outlined-basic"
                         label="Id"
                         type="number"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         onChange={handleId}
                         value={newId}
+                        sx={{mt:2}}
+                        
                     />
                     <TextField
                         autoFocus
-                        id="Id"
+                        id="outlined-basic"
                         label="year"
                         type="string"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         onChange={handleYear}
+                        sx={{mt:2}}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleAdd}>Add</Button>
+                    
                     <Button onClick={handleClose}>Close</Button>
+                    <Button onClick={handleAdd}>Add</Button>
+                    
                 </DialogActions>
             </Dialog>
         </div>
