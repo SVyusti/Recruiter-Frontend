@@ -5,13 +5,25 @@ import { CardDeck,Card, CardActions,CardContent,Button,Typography } from '@mui/m
 import { useParams } from 'react-router-dom'
 import { Row } from 'react-bootstrap'
 import AddRound from './AddRound'
+import { AiOutlineClose } from "react-icons/ai";
+import DeleteRound from './DeleteRound'
 
 export const RoundView = () => {
+
   const round=useSelector((state)=>state.round)
   const seasonId=useParams()
   const dispatch=useDispatch()
-  const [openAdd, setOpenAdd]=useState(false)
 
+
+  const [openAdd, setOpenAdd]=useState(false)
+  const [openDelete,setOpenDelete]=useState(false)
+  const [DeleteId,setDeleteId]=useState(0)
+
+
+  function handleDelete(id){
+    setOpenDelete(true)
+    setDeleteId(id)
+  }
 
   useEffect(()=>{
     dispatch(fetchRounds(seasonId['season_id']))
@@ -21,6 +33,7 @@ export const RoundView = () => {
       <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
       <div><h1>Recruitment Season {seasonId['season_year']}</h1></div>
       <AddRound open={openAdd} setOpen={setOpenAdd}/>
+      <DeleteRound open={openDelete} setOpen={setOpenDelete} deleteRoundId={DeleteId} setDeleteRoundId={setDeleteId}/>
       <div><button onClick={()=>setOpenAdd(true)}>Add Round</button></div>
       </div>
       {round.loading && <div>Loading...</div>}
@@ -29,9 +42,12 @@ export const RoundView = () => {
         <div style={{display:'flex', flexDirection:'row'}}>          
               {
               round.rounds.slice(0).reverse().map(round=>{
-                      return <Card sx={{ maxWidth: 345, margin:2.5 }} key={round.RoundId}>
+                      return <Card sx={{ maxWidth: 350, margin:2.5 }} key={round.RoundId}>
                         <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">{round.role}</Typography>
+                          <div style={{display:'flex',justifyContent:'space-between'}}>
+                            <Typography variant="h5" component="div">{round.role}</Typography>
+                            <Button onClick={()=>(handleDelete(round.RoundId))}><AiOutlineClose/></Button>
+                          </div>
                         <Typography variant="h5">{round.type}</Typography>
                         </CardContent>
                         <CardActions>
@@ -42,6 +58,7 @@ export const RoundView = () => {
                 
               })
             }
+            
         </div>
       ): null}
     </div>

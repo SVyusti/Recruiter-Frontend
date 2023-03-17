@@ -22,7 +22,7 @@ export const fetchRounds=createAsyncThunk('round/fetchRounds',(season_id)=>{
         .then((response)=>response.data)
 })
 
-export const createRound=createAsyncThunk('round/fetchRounds',(round_data)=>{
+export const createRound=createAsyncThunk('round/createRound',(round_data)=>{
     console.log(round_data)
     return client
         .post('/round/',
@@ -35,6 +35,13 @@ export const createRound=createAsyncThunk('round/fetchRounds',(round_data)=>{
         }
         )
         .then((response)=>response.data)
+})
+
+export const deleteRound=createAsyncThunk('round/deleteRound',(round_id)=>{
+    return client
+        .delete(`/round/${round_id}`,{withCredentials:true})
+        .then((response)=>response.data)
+        .catch((error)=>console.log(error.message))
 })
 
 
@@ -54,6 +61,28 @@ const roundSlice=createSlice({
         builder.addCase(fetchRounds.rejected,(state,action)=>{
             state.loading=false
             state.rounds=[]
+            state.error=action.error.message
+        })
+        builder.addCase(createRound.pending,(state)=>{
+            state.loading=true
+        })
+        builder.addCase(createRound.fulfilled,(state,action)=>{
+            state.loading=false
+            state.rounds=action.payload
+            state.error=''
+        })
+        builder.addCase(createRound.rejected,(state,action)=>{
+            state.loading=false
+            state.error=action.error.message
+        })
+        builder.addCase(deleteRound.pending,(state)=>{
+            state.loading=true
+        })
+        builder.addCase(deleteRound.fulfilled,(state)=>{
+            state.loading=false
+        })
+        builder.addCase(deleteRound.rejected,(state,action)=>{
+            state.loading=false
             state.error=action.error.message
         })
     },
